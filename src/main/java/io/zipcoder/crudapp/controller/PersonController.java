@@ -17,26 +17,26 @@ public class PersonController
     {
     }
 
-    @GetMapping("/people")
-    public ResponseEntity<?> getPersonList()
-    {
-        return new ResponseEntity<>(personRepository.findAll(), HttpStatus.OK);
-    }
-
-    @GetMapping("/people/{id}")
-    public ResponseEntity<?> getPerson(Long id)
-    {
-        return new ResponseEntity<>(personRepository.findOne(id), HttpStatus.OK);
-    }
-
-    @PostMapping("/people/{id}")
+    @PostMapping(value = "/people")
     public ResponseEntity<?> createPerson(Person p)
     {
         return new ResponseEntity<>(personRepository.save(p), HttpStatus.CREATED);
     }
 
+    @GetMapping("/people")
+    public ResponseEntity<Iterable<Person>> getPersonList()
+    {
+        return new ResponseEntity<>(personRepository.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/people/{id}")
+    public ResponseEntity<?> getPerson(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(personRepository.findOne(id), HttpStatus.OK);
+    }
+
     @PutMapping("/people/{id}")
-    public ResponseEntity<?> updatePerson(Long id, Person p)
+    public ResponseEntity<?> updatePerson(@PathVariable Long id, @RequestBody Person p)
     {
         return new ResponseEntity<>(personRepository.save(p), HttpStatus.OK);
     }
