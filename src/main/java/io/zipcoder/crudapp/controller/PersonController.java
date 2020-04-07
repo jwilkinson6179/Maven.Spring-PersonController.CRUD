@@ -15,10 +15,11 @@ public class PersonController
     @Autowired
     public PersonController(PersonRepository personRepository)
     {
+        this.personRepository = personRepository;
     }
 
     @PostMapping(value = "/people")
-    public ResponseEntity<?> createPerson(Person p)
+    public ResponseEntity<?> createPerson(@RequestBody Person p)
     {
         return new ResponseEntity<>(personRepository.save(p), HttpStatus.CREATED);
     }
